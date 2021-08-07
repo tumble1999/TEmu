@@ -21,9 +21,6 @@
     <ClCompile Include="src\chip8.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\chip8.h">
@@ -32,8 +29,8 @@
     <ClInclude Include="src\screen_size.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\platform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

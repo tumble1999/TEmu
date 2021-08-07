@@ -2,22 +2,20 @@
 #include <iostream>
 
 #include <SDL/SDL.h>
+#include <TEmu\Platform.h>
 
 #include "screen_size.h"
-#include "platform.h"
 #include "chip8.h"
 
-
-
 int main(int argc, char* args[]) {
-	std::cout << "Hello" << std::endl;
+	std::cout << "Starting TEmu Chip8 Emulator" << std::endl;
 
 	int delay = 1;
 	int scale = 10;
 
-	Platform platform("TEmu - TEChip8", scale*VIDEO_WIDTH, scale*VIDEO_HEIGHT, VIDEO_WIDTH, VIDEO_HEIGHT);
+	TEmu::Platform platform("TEmu - TEChip8", VIDEO_WIDTH, VIDEO_HEIGHT,scale);
 	Chip8 chip8;
-	chip8.loadGame("pong");
+	chip8.loadGame("PONG");
 
 	int videoPitch = sizeof(chip8.video[0]) * VIDEO_WIDTH;
 	auto lastCycleTime = std::chrono::high_resolution_clock::now();

@@ -4,33 +4,10 @@
 #include <string>
 
 #include "screen_size.h"
+#include <TEmu\Util.h>
 
 const unsigned int FONT_START = 0x50;
 const unsigned int ROM_START = 0x200;
-
-struct FileBin {
-	char* buffer{};
-	std::streampos size;
-};
-
-FileBin getFileBin(const char* path) {
-	printf("Opening file %s\n", path);
-	std::ifstream file(path, std::ios::binary | std::ios::ate);
-
-	if (!file.is_open()) {
-		printf("Error opening file %s\n", path);
-		exit(1);
-	}
-
-	FileBin binary;
-	binary.size = file.tellg();
-	binary.buffer = new char[binary.size];
-
-	file.seekg(0, std::ios::beg);
-	file.read(binary.buffer, binary.size);
-	file.close();
-	return binary;
-}
 
 Chip8::Chip8()
 	: randGen(std::chrono::system_clock::now().time_since_epoch().count())
@@ -38,7 +15,7 @@ Chip8::Chip8()
 	//Initialize program Counter
 	pc = ROM_START;
 
-	FileBin fontset = getFileBin("fontset");
+	TEmu::FileBin fontset = TEmu::GetFileBin("fontset");
 	for (unsigned int i = 0; i < fontset.size; i++) {
 		memory[FONT_START + i] = fontset.buffer[i];
 	}
@@ -99,7 +76,7 @@ void Chip8::loadGame(const char* rom)
 {
 	std::string path = "roms/";
 	path += rom;
-	FileBin romBin = getFileBin(path.c_str());
+	TEmu::FileBin romBin = TEmu::GetFileBin(path.c_str());
 	
 	for (long i = 0; i < romBin.size; i++) {
 		memory[ROM_START + i] = romBin.buffer[i];

@@ -92,6 +92,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)TEmu\src</AdditionalIncludeDirectories>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,12 +148,18 @@
   <ItemGroup>
     <ClCompile Include="src\chip8.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\platform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\chip8.h" />
-    <ClInclude Include="src\platform.h" />
     <ClInclude Include="src\screen_size.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TEmu\TEmu.vcxproj">
+      <Project>{e3359787-60ea-4062-8f93-4736d2a5b5e6}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

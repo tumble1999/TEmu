@@ -1,13 +1,15 @@
-#include "platform.h"
+#include "Platform.h"
 
 #include <SDL\SDL.h>
 
-Platform::Platform(const char* title, int width, int height, int textureWidth, int textureHeight)
+using namespace TEmu;
+
+Platform::Platform(const char* title, int width, int height, int scale)
 {
 	SDL_Init(SDL_INIT_VIDEO);
-	window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width*scale, height*scale, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, textureWidth, textureHeight);
+	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, width, height);
 }
 
 Platform::~Platform()
@@ -206,7 +208,7 @@ bool Platform::input(uint8_t* keys)
 			} break;
 			}
 			break;
-		} 
+		}
 		default:
 			break;
 		}
@@ -217,7 +219,7 @@ bool Platform::input(uint8_t* keys)
 void Platform::update(const void* buffer, int pitch)
 {
 	SDL_UpdateTexture(texture, nullptr, buffer, pitch);
-	SDL_RenderClear(renderer);
+	//SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture, nullptr, nullptr);
 	SDL_RenderPresent(renderer);
 }
